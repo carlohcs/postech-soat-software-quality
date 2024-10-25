@@ -15,6 +15,14 @@ import static org.mockito.Mockito.*;
 
 // UNIT TESTS
 // https://site.mockito.org/
+
+// Lint
+// https://checkstyle.sourceforge.io/
+// Oracle checkstyle
+
+// Google checkstyle
+// https://google.github.io/styleguide/javaguide.html
+
 public class MessageRepositoryTest {
 
     @Mock
