@@ -16,12 +16,20 @@ import static org.mockito.Mockito.*;
 // UNIT TESTS
 // https://site.mockito.org/
 
+// Mock MVC
+// https://spring.io/guides/gs/testing-web/
+
 // Lint
 // https://checkstyle.sourceforge.io/
 // Oracle checkstyle
 
 // Google checkstyle
 // https://google.github.io/styleguide/javaguide.html
+
+// https://json-schema.org/
+// We can use it in order to generate a JSON schema from a JSON object
+// So we can use this schema to validate the JSON objects we are sending and receiving
+// So we can respect contracts between the client and the server
 
 public class MessageRepositoryTest {
 

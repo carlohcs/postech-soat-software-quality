@@ -2,6 +2,7 @@ package br.com.carlohcs.api.repository;
 
 import br.com.carlohcs.api.model.Message;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -28,83 +29,97 @@ public class MessageRepositoryIT {
         assertThat(totalMessages).isNotNegative();
     }
 
-    @Test
-    void registerAMessage() {
-//        Arrange
-        var id = UUID.randomUUID();
-        var message = buildMessage();
-        message.setId(id);
+    @Nested
+    class Register {
 
-//        Act
-        var savedMessage = messageRepository.save(message);
+        @Test
+        void registerAMessage() {
+    //        Arrange
+            var id = UUID.randomUUID();
+            var message = buildMessage();
+            message.setId(id);
 
-//        Assert
-        assertThat(savedMessage).isInstanceOf(Message.class).isNotNull();
-        assertThat(savedMessage.getId()).isEqualTo(id);
-        assertThat(savedMessage.getContent()).isEqualTo(message.getContent());
-        assertThat(savedMessage.getUsername()).isEqualTo(message.getUsername());
+    //        Act
+            var savedMessage = messageRepository.save(message);
+
+    //        Assert
+            assertThat(savedMessage).isInstanceOf(Message.class).isNotNull();
+            assertThat(savedMessage.getId()).isEqualTo(id);
+            assertThat(savedMessage.getContent()).isEqualTo(message.getContent());
+            assertThat(savedMessage.getUsername()).isEqualTo(message.getUsername());
+        }
+
     }
 
-    @Test
-    void findAMessage() {
-        // Arrange
+    @Nested
+    class Find {
+        @Test
+        void findAMessage() {
+            // Arrange
 //        Legacy way
 //        var id = UUID.randomUUID();
 //        var message = buildMessage();
 //        message.setId(id);
 //        saveMessage(message);
-        var id = UUID.fromString("8c9e72d1-cef1-4e35-b476-8f3f92fd33b2");
+            var id = UUID.fromString("8c9e72d1-cef1-4e35-b476-8f3f92fd33b2");
 
-        // Act
-        var foundMessageOptional = messageRepository.findById(id);
+            // Act
+            var foundMessageOptional = messageRepository.findById(id);
 
-        // Assert
-        assertThat(foundMessageOptional).isPresent();
+            // Assert
+            assertThat(foundMessageOptional).isPresent();
 
-        foundMessageOptional.ifPresent((foundMessage) -> {
-            assertThat(foundMessage.getId()).isEqualTo(id);
-        });
+            foundMessageOptional.ifPresent((foundMessage) -> {
+                assertThat(foundMessage.getId()).isEqualTo(id);
+            });
+        }
+
+        @Test
+        void findAllMessages() {
+            // Act
+            var messages = messageRepository.findAll();
+
+            // Assert
+            assertThat(messages).hasSizeGreaterThanOrEqualTo(3);
+        }
     }
 
-    @Test
-    void findAllMessages() {
-        // Act
-        var messages = messageRepository.findAll();
+    @Nested
+    class Update {
+        @Test
+        void updateAMessage() {
+            // Arrange
+            var id = UUID.fromString("8c9e72d1-cef1-4e35-b476-8f3f92fd33b2");
+            var message = messageRepository.findById(id);
 
-        // Assert
-        assertThat(messages).hasSizeGreaterThanOrEqualTo(3);
+            // Act
+            message.ifPresent((foundMessage) -> {
+                foundMessage.setContent("Hello, World! Updated");
+                messageRepository.save(foundMessage);
+            });
+
+            // Assert
+            var updatedMessage = messageRepository.findById(id);
+            assertThat(updatedMessage).isPresent();
+            updatedMessage.ifPresent((foundMessage) -> {
+                assertThat(foundMessage.getContent()).isEqualTo("Hello, World! Updated");
+            });
+        }
     }
 
-    @Test
-    void updateAMessage() {
-        // Arrange
-        var id = UUID.fromString("8c9e72d1-cef1-4e35-b476-8f3f92fd33b2");
-        var message = messageRepository.findById(id);
+    @Nested
+    class Delete {
+        @Test
+        void deleteAMessage() {
+            // Arrange
+            var id = UUID.fromString("5c6088ae-90de-4d3d-95d9-1225aefbdb62");
 
-        // Act
-        message.ifPresent((foundMessage) -> {
-            foundMessage.setContent("Hello, World! Updated");
-            messageRepository.save(foundMessage);
-        });
+            // Act
+            messageRepository.deleteById(id);
 
-        // Assert
-        var updatedMessage = messageRepository.findById(id);
-        assertThat(updatedMessage).isPresent();
-        updatedMessage.ifPresent((foundMessage) -> {
-            assertThat(foundMessage.getContent()).isEqualTo("Hello, World! Updated");
-        });
-    }
-
-    @Test
-    void deleteAMessage() {
-        // Arrange
-        var id = UUID.fromString("5c6088ae-90de-4d3d-95d9-1225aefbdb62");
-
-        // Act
-        messageRepository.deleteById(id);
-
-        // Assert
-        assertThat(messageRepository.findById(id)).isEmpty();
+            // Assert
+            assertThat(messageRepository.findById(id)).isEmpty();
+        }
     }
 
     private Message buildMessage() {

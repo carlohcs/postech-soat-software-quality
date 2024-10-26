@@ -1,7 +1,7 @@
 package br.com.carlohcs.api.exception;
 
-class MessageNotFoundException extends RuntimeException {
-        MessageNotFoundException(String message) {
+public class MessageNotFoundException extends RuntimeException {
+        public MessageNotFoundException(String message) {
             super(message);
     }
 }
