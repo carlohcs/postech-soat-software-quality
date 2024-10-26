@@ -51,8 +51,9 @@ public class MessageControllerTest {
 
 //            Act
             mockMvc.perform(post("/messages")
-                    .content(asJsonString(message)))
-                    .andExpect(status().isCreated());
+                            .contentType("application/json")
+                            .content(asJsonString(message)))
+                            .andExpect(status().isCreated());
 
 //            Assert
             verify(messageService, times(1)).registerMessage(any(Message.class));
