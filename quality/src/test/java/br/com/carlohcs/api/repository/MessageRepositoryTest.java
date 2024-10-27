@@ -26,6 +26,9 @@ import static org.mockito.Mockito.*;
 // Google checkstyle
 // https://google.github.io/styleguide/javaguide.html
 
+// BDD testing
+//https://cucumber.io/
+
 // https://json-schema.org/
 // We can use it in order to generate a JSON schema from a JSON object
 // So we can use this schema to validate the JSON objects we are sending and receiving

@@ -1,42 +1,15 @@
 server:
   port: 8080
-  shutdown: graceful
-  servlet:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
 spring:
-  profiles:
-    active: test
   datasource:
-    # https://www.baeldung.com/spring-boot-h2-database#h2-database-url-options
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE;
-    #    url: jdbc:h2:file:./target/h2.db;AUTO_SERVER=true
-    #    url: jdbc:h2:tcp://localhost:9092/mem:testdb
+    driver-class-name: org.postgresql.Driver
     username: root
     password: root
-    driverClassName: org.h2.Driver
+# docker-compose -f docker/docker-compose.yaml up --build
+    url: jdbc:postgresql://localhost:5432/backend
   jpa:
-#    database: h2
-    database-platform: org.hibernate.dialect.H2Dialect
-    # Apenas para teste
-    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create-drop
-  sql:
-    init:
-      mode: always
-  lifecycle:
-    timeout-per-shutdown-phase: "5s"
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,shutdown
-  endpoint:
-    shutdown:
-      enabled: true
-#logging:
-#  level:
-#    root: DEBUG
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
