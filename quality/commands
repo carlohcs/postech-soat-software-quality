@@ -1,0 +1,20 @@
+mvn clean # clean the project
+
+mvn spring-boot:start # start the spring boot application
+
+mvn test # for unit tests
+
+mvn test -P integration-test # for integration tests
+
+mvn test -P system-test # for system tests or also called end-to-end tests or bdd tests
+
+mvn test -P system-test -Dcucumber.options="--tags @smoke" # for running only smoke tests or
+# mvn test -P system-test -Dcucumber.filter.tags="@smoke" # for running only smoke tests
+
+# Generate Allure report - like a jest report
+# https://allurereport.org/docs/
+## To see the logs:
+# npm install -g allure-commandline
+# allure serve target/allure-results --host 127.0.0.1
+
+

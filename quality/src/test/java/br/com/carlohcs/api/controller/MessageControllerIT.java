@@ -1,5 +1,6 @@
 package br.com.carlohcs.api.controller;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -24,6 +25,7 @@ public class MessageControllerIT {
     void setup() {
         RestAssured.port = port;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+//        RestAssured.filters(new AllureRestAssured());
     }
 
     @Nested
@@ -31,6 +33,7 @@ public class MessageControllerIT {
         @Test
         void registerMessage() {
             given()
+                    .filter(new AllureRestAssured())
                     .body("{\"username\": \"carlohcs\", \"content\": \"Hello, World!\"}")
                     .contentType("application/json")
             .when()

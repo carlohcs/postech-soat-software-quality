@@ -3,6 +3,9 @@ package br.com.carlohcs.api.service;
 import br.com.carlohcs.api.exception.MessageNotFoundException;
 import br.com.carlohcs.api.model.Message;
 import br.com.carlohcs.api.repository.MessageRepository;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +41,8 @@ class MessageServiceTest {
     }
 
     @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Test to verify if the message is registered")
     void registerMessage() {
 //        Arrange
         Message message = buildMessage();
@@ -57,6 +62,8 @@ class MessageServiceTest {
     }
 
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to verify if the exception is thrown when the message is null")
     void findMessage() {
 //        Arrange
         var id = UUID.randomUUID();
@@ -75,6 +82,8 @@ class MessageServiceTest {
     }
 
     @Test
+    @Severity(SeverityLevel.MINOR)
+    @Description("Test to verify if the exception is thrown when the message is not found")
     void findMessageException() {
 //        Arrange
         var id = UUID.randomUUID();

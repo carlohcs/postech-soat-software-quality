@@ -1,6 +1,5 @@
 package br.com.carlohcs.api.config;
 
-import br.com.carlohcs.api.model.Message;
 import br.com.carlohcs.api.repository.MessageRepository;
 import br.com.carlohcs.api.service.MessageService;
 import br.com.carlohcs.api.service.MessageServiceImpl;

@@ -3,7 +3,7 @@ package br.com.carlohcs.api.controller;
 import br.com.carlohcs.api.model.Message;
 import br.com.carlohcs.api.service.MessageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MessageController {
 
-    @Autowired
     private final MessageService messageService;
 
 //    How to test:
