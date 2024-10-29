@@ -16,6 +16,10 @@ system-test:
 	@mvn test -P system-test
 	@make docker-stop
 
+performance-test:
+	@echo "Running performance tests"
+	@mvn gatling:test -P performance-test
+
 test: unit-test integration-test
 
 package:
