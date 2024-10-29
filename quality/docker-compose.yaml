@@ -1,0 +1,27 @@
+services:
+
+  app:
+    image: 'backend:dev'
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: quality-backend
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATA_SOURCE_URL=jdbc:postgresql://quality-backend-db:5432/backend
+      - SPRING_DATA_SOURCE_USERNAME=root
+      - SPRING_DATA_SOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+
+  db:
+    image: postgres
+    container_name: quality-backend-db
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: backend
+    ports:
+      - 5432:5432
